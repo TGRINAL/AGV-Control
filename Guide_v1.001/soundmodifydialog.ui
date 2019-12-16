@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SoundModifyDialog</class>
+ <widget class="QDialog" name="SoundModifyDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>737</width>
+    <height>102</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sound Modify Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QDialog, QRadioButton , QLabel, QCheckBox
+{ 
+	background:  rgba(32, 80, 96, 100);
+	color:white;
+}
+
+QPushButton
+{
+	color: white;
+	background-color: #27a9e3;
+	border-width: 0px;
+	border-radius: 3px;
+}
+
+QComboBox QAbstractItemView 
+{
+  color: white;
+  border: 1px solid grey;
+  background: #27a9e3;
+  selection-background-color: #66c011; 
+}
+
+QPushButton:hover, QComboBox:hover{ background-color: #66c011; }
+
+QPushButton:disabled, QComboBox:disabled { background-color:rgb(114,200,237); }
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,0,1">
+     <item>
+      <widget class="QLineEdit" name="fileLineEdit">
+       <property name="font">
+        <font>
+         <family>微軟正黑體</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="selectMusicBtn">
+       <property name="font">
+        <font>
+         <family>微軟正黑體</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Select</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>微軟正黑體</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>------&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="targetCB">
+       <property name="font">
+        <font>
+         <family>微軟正黑體</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <item>
+        <property name="text">
+         <string>Background Music</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Obstacles Stop Music</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 4</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 7</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Audio 8</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="modifyBtn">
+       <property name="font">
+        <font>
+         <family>微軟正黑體</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Modify</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeBtn">
+       <property name="font">
+        <font>
+         <family>微軟正黑體</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

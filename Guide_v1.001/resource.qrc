@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Img/abort.png</file>
+        <file>Img/go.png</file>
+        <file>Img/management.png</file>
+        <file>Img/alarm.png</file>
+        <file>Img/log.png</file>
+        <file>Img/lang.png</file>
+        <file>Img/time.png</file>
+        <file>Img/script.png</file>
+        <file>Img/audio.png</file>
+        <file>Img/origin.png</file>
+        <file>Img/network.png</file>
+        <file>Img/camera.png</file>
+        <file>Img/joystick64.png</file>
+        <file>Img/management64.png</file>
+        <file>Img/arrow_left.png</file>
+        <file>Img/arrow_right.png</file>
+        <file>Img/arrow_down.png</file>
+        <file>Img/arrow_up.png</file>
+    </qresource>
+</RCC>
