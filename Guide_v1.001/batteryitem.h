@@ -1,9 +1,27 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            batteryitem.h
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #ifndef BATTERYITEM_H
 #define BATTERYITEM_H
 
 #include <QWidget>
 #include "ui_batteryitem.h"
 
+/*
+* Class Description
+*/
 class BatteryItem : public QWidget
 {
     Q_OBJECT

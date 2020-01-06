@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            joystickdialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "joystickdialog.h"
 #include "ui_joystickdialog.h"
 
@@ -41,6 +56,11 @@ JoystickDialog::~JoystickDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	flag
+*Returns : 		void
+*/
 void JoystickDialog::setFlicker(bool flag)
 {
     flickerFlag = flag;
@@ -55,6 +75,11 @@ void JoystickDialog::setFlicker(bool flag)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::handleBackgroundTimeout()
 {
     static bool pingpong = true;
@@ -71,60 +96,115 @@ void JoystickDialog::handleBackgroundTimeout()
     pingpong = !pingpong;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_closeBtn_clicked()
 {
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_forwardBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Forward);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_backwardBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Backward);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_leftBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Left);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_rightBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Right);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_forwardBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_backwardBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_leftBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_rightBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_stopBtn_clicked()
 {
     emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	checked
+*Returns : 		void
+*/
 void JoystickDialog::on_jogRb_toggled(bool checked)
 {
     if(checked)
@@ -135,11 +215,21 @@ void JoystickDialog::on_jogRb_toggled(bool checked)
     emit setTeleopMode(teleopMode);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_abortBtn_clicked()
 {
     emit abortMovebase();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_safeBtn_clicked()
 {
     if(ui->safeBtn->text() == tr("Safe Stop")){
@@ -163,6 +253,11 @@ void JoystickDialog::on_safeBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	linear, angular
+*Returns : 		void
+*/
 void JoystickDialog::getVel(float linear, float angular)
 {
     linearValue = linear;
@@ -171,6 +266,11 @@ void JoystickDialog::getVel(float linear, float angular)
     ui->velLabel->setText(tr("Linear: %1 m/s\nAngular: %2 degree/s").arg(linearValue).arg((int)(180.0*angularValue/M_PI)));
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void
+*/
 void JoystickDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {
@@ -186,6 +286,11 @@ void JoystickDialog::changeEvent(QEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void
+*/
 void JoystickDialog::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_S)
@@ -200,40 +305,75 @@ void JoystickDialog::keyPressEvent(QKeyEvent *event)
         emit updateVel(VEL_TYPE::Right);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_ledLeftBtn_clicked()
 {
     if(ui->ledComboBox->currentIndex() > 0)
         ui->ledComboBox->setCurrentIndex(ui->ledComboBox->currentIndex()-1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_ledRightBtn_clicked()
 {
     if(ui->ledComboBox->currentIndex() < ui->ledComboBox->count()-1)
         ui->ledComboBox->setCurrentIndex(ui->ledComboBox->currentIndex()+1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_audioLeftBtn_clicked()
 {
     if(ui->audioComboBox->currentIndex() > 0)
         ui->audioComboBox->setCurrentIndex(ui->audioComboBox->currentIndex()-1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_audioRightBtn_clicked()
 {
     if(ui->audioComboBox->currentIndex() < ui->audioComboBox->count()-1)
         ui->audioComboBox->setCurrentIndex(ui->audioComboBox->currentIndex()+1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_ledPlayBtn_clicked()
 {
     emit showAction(0, ui->ledComboBox->currentIndex());
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_audioPlayBtn_clicked()
 {
     emit showAction(1, ui->audioComboBox->currentIndex());
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_showBtn_clicked()
 {
     if(ui->showBtn->icon().themeName() == "show"){
@@ -265,6 +405,11 @@ void JoystickDialog::on_showBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void JoystickDialog::on_audioLoopBtn_clicked()
 {
     emit showAction(2, ui->audioComboBox->currentIndex());

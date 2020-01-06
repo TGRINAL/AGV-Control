@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            mywidget.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "mywidget.h"
 #include "ui_mywidget.h"
 
@@ -120,6 +135,11 @@ MyWidget::~MyWidget()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	flag
+*Returns : 		void
+*/
 void MyWidget::enableUi(bool flag)
 {
     ui->connectBtn->setEnabled(flag);
@@ -131,6 +151,11 @@ void MyWidget::enableUi(bool flag)
     ui->managementBtn->setEnabled(flag);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_connectBtn_clicked()
 {
     //qDebug() << tcpSocket->state();
@@ -154,6 +179,11 @@ void MyWidget::on_connectBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::setProgressDialog()
 {
     progressDlg = new QProgressDialog;
@@ -173,6 +203,11 @@ void MyWidget::setProgressDialog()
     progressTimer->start();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_joystickBtn_clicked()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -205,6 +240,11 @@ void MyWidget::on_joystickBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_resetOriginBtn_clicked()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -220,6 +260,11 @@ void MyWidget::on_resetOriginBtn_clicked()
     dlg->show();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_managementBtn_clicked()
 {
     ChangePwdDialog *dlg = new ChangePwdDialog;
@@ -231,7 +276,11 @@ void MyWidget::on_managementBtn_clicked()
     dlg->show();
 }
 
-
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_goBtn_clicked()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -247,6 +296,11 @@ void MyWidget::on_goBtn_clicked()
 
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_abortBtn_clicked()
 {
     if(!ui->goBtn->isEnabled()){
@@ -260,11 +314,21 @@ void MyWidget::on_abortBtn_clicked()
     onPublishKeyPriority(false);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::on_systemShutdownBtn_clicked()
 {
     systemCommand(SYSTEM_CMD::SHUTDOWN);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::tcpConnectStateChange()
 {
     QTextStream connectionLogStream(&connectionLogFile);
@@ -337,6 +401,11 @@ void MyWidget::tcpConnectStateChange()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::writeSettings()
 {
     //qDebug() << "writeSettings";
@@ -356,6 +425,11 @@ void MyWidget::writeSettings()
     writeScriptSettingToTxt();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::readSettings()
 {
     QSettings settings;
@@ -390,6 +464,11 @@ void MyWidget::readSettings()
     readScriptSettingFromTxt();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::writeScriptSettingToTxt()
 {
     QString saveFileName = QString("ScriptSetting.txt");
@@ -411,6 +490,11 @@ void MyWidget::writeScriptSettingToTxt()
     file.close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::readScriptSettingFromTxt()
 {
     QString loadFileName = QString("ScriptSetting.txt");
@@ -437,6 +521,11 @@ void MyWidget::readScriptSettingFromTxt()
         setCurrentScript(scriptButtonList.first()->scriptName);
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void
+*/
 void MyWidget::keyPressEvent(QKeyEvent *event)
 {
     if(mode != MODE_TYPE::SLAM)
@@ -451,6 +540,11 @@ void MyWidget::keyPressEvent(QKeyEvent *event)
         velType = VEL_TYPE::Right;
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void
+*/
 void MyWidget::keyReleaseEvent(QKeyEvent *event)
 {
     if(mode != MODE_TYPE::SLAM)
@@ -463,6 +557,11 @@ void MyWidget::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void
+*/
 void MyWidget::changeEvent(QEvent *event)
 {
     if(0 != event) {
@@ -487,12 +586,22 @@ void MyWidget::changeEvent(QEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::handleEnableUiTimeout()
 {
     enableUiTimer->stop();
     enableUi(true);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::handleVelCmdTimeout()
 {
     if(velType == VEL_TYPE::Stop || teleopMode == TELEOP_TYPE::LINEAR)
@@ -500,6 +609,11 @@ void MyWidget::handleVelCmdTimeout()
     onPublishCmdVel();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::handleProgressTimeout()
 {
     progressValue++;
@@ -510,6 +624,11 @@ void MyWidget::handleProgressTimeout()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::handleAudioLoopTimeout()
 {
     audioLoopTimer->stop();
@@ -524,7 +643,11 @@ void MyWidget::handleAudioLoopTimeout()
     audioLoopTimer->start();
 }
 
-
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::correctRobotDateTime()
 {
     QProcess cmdProcess;;
@@ -550,6 +673,11 @@ void MyWidget::correctRobotDateTime()
     cmdProcess.close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::readData()
 {
     static QTime preTime = QTime::currentTime();
@@ -598,6 +726,11 @@ void MyWidget::readData()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseFeedbackMsg(QByteArray data)
 {
     QJsonParseError error;
@@ -646,6 +779,11 @@ void MyWidget::parseFeedbackMsg(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseSensorButtonCmdVel(QByteArray data)
 {
     Q_UNUSED(data);
@@ -654,6 +792,11 @@ void MyWidget::parseSensorButtonCmdVel(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseLongTimeStopAlarm(QByteArray data)
 {   
     QJsonParseError error;
@@ -690,6 +833,11 @@ void MyWidget::parseLongTimeStopAlarm(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseListScriptServiceResponseJsonData(QByteArray data)
 {
     QJsonParseError error;
@@ -704,6 +852,11 @@ void MyWidget::parseListScriptServiceResponseJsonData(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseGetVolumeJsonData(QByteArray data)
 {
     //qDebug() << "parseGetVolumeJsonData" << data;
@@ -733,6 +886,11 @@ void MyWidget::parseGetVolumeJsonData(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseRealVolState(QByteArray data)
 {
     QJsonParseError error;
@@ -757,6 +915,11 @@ void MyWidget::parseRealVolState(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseUltraSensorStatus(QByteArray data)
 {
     QJsonParseError error;
@@ -771,6 +934,11 @@ void MyWidget::parseUltraSensorStatus(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	data
+*Returns : 		void
+*/
 void MyWidget::parseReplyScript(QByteArray data)
 {
     QJsonParseError error;
@@ -798,6 +966,11 @@ void MyWidget::parseReplyScript(QByteArray data)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseRobotModeFlag()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -814,6 +987,11 @@ void MyWidget::onAdvertiseRobotModeFlag()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseCmdVel()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -829,6 +1007,11 @@ void MyWidget::onAdvertiseCmdVel()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseActionCommand()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -844,6 +1027,11 @@ void MyWidget::onAdvertiseActionCommand()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseActionScript()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -859,6 +1047,11 @@ void MyWidget::onAdvertiseActionScript()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseAskScript()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -874,6 +1067,11 @@ void MyWidget::onAdvertiseAskScript()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseKeyPriority()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -889,6 +1087,11 @@ void MyWidget::onAdvertiseKeyPriority()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseInitPose()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -904,6 +1107,11 @@ void MyWidget::onAdvertiseInitPose()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseMoveBaseCancel()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -919,6 +1127,11 @@ void MyWidget::onAdvertiseMoveBaseCancel()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseBaseGoalForOrigin()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -934,6 +1147,11 @@ void MyWidget::onAdvertiseBaseGoalForOrigin()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseRobotSoundFlag()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -949,6 +1167,11 @@ void MyWidget::onAdvertiseRobotSoundFlag()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onAdvertiseWriteExternalComm()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -964,6 +1187,11 @@ void MyWidget::onAdvertiseWriteExternalComm()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	type
+*Returns : 		void
+*/
 void MyWidget::onPublishRobotModeFlag(MODE_TYPE type)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1002,6 +1230,11 @@ void MyWidget::onPublishRobotModeFlag(MODE_TYPE type)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onPublishCmdVel()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1112,6 +1345,11 @@ void MyWidget::onPublishCmdVel()
     emit sendVel(linearVel, angularVel);
 }
 
+/*
+*Function Description :
+*Parameters : 	cmdType, name, startLine
+*Returns : 		void
+*/
 void MyWidget::onPublishActionCommand(int cmdType, QString name, int startLine)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1133,6 +1371,11 @@ void MyWidget::onPublishActionCommand(int cmdType, QString name, int startLine)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		bool
+*/
 bool MyWidget::onPublishActionScript()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1155,6 +1398,11 @@ bool MyWidget::onPublishActionScript()
     return true;
 }
 
+/*
+*Function Description :
+*Parameters : 	name
+*Returns : 		void
+*/
 void MyWidget::onPublishAskScript(QString name)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1173,6 +1421,11 @@ void MyWidget::onPublishAskScript(QString name)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	flag
+*Returns : 		void
+*/
 void MyWidget::onPublishKeyPriority(bool flag)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1191,6 +1444,11 @@ void MyWidget::onPublishKeyPriority(bool flag)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	isOrigin, pos, quat
+*Returns : 		void
+*/
 void MyWidget::onPublishInitPose(bool isOrigin, QPointF pos, QQuaternion quat)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1252,6 +1510,11 @@ void MyWidget::onPublishInitPose(bool isOrigin, QPointF pos, QQuaternion quat)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onPublishMoveBaseCancel()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1274,6 +1537,11 @@ void MyWidget::onPublishMoveBaseCancel()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onPublishMoveBaseGoalForOrigin()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1324,6 +1592,11 @@ void MyWidget::onPublishMoveBaseGoalForOrigin()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 void MyWidget::onPublishRobotSoundFlag(int idx)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1342,6 +1615,11 @@ void MyWidget::onPublishRobotSoundFlag(int idx)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 void MyWidget::onPublishWriteExternalComm(int idx) //LED
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1361,6 +1639,11 @@ void MyWidget::onPublishWriteExternalComm(int idx) //LED
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onSubscribeFeedbackMsg()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1377,6 +1660,11 @@ void MyWidget::onSubscribeFeedbackMsg()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onSubscribeSensorButtonCmdVel()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1393,6 +1681,11 @@ void MyWidget::onSubscribeSensorButtonCmdVel()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onSubscribeLongTimeStopAlarm()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1408,6 +1701,11 @@ void MyWidget::onSubscribeLongTimeStopAlarm()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onSubscribeRealVolState()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1425,6 +1723,11 @@ void MyWidget::onSubscribeRealVolState()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onSubscribeReplyScript()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1440,6 +1743,11 @@ void MyWidget::onSubscribeReplyScript()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onSubscribeUltraSensorStatus()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1456,6 +1764,11 @@ void MyWidget::onSubscribeUltraSensorStatus()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onUnsubscribeFeedbackMsg()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1470,6 +1783,11 @@ void MyWidget::onUnsubscribeFeedbackMsg()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onUnsubscribeSensorButtonCmdVel()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1484,6 +1802,11 @@ void MyWidget::onUnsubscribeSensorButtonCmdVel()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onUnsubscribeLongTimeStopAlarm()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1498,6 +1821,11 @@ void MyWidget::onUnsubscribeLongTimeStopAlarm()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onUnsubscribeRealVolState()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1512,6 +1840,11 @@ void MyWidget::onUnsubscribeRealVolState()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onUnsubscribeReplyScript()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1526,6 +1859,11 @@ void MyWidget::onUnsubscribeReplyScript()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onUnsubscribeUltraSensorStatus()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1540,6 +1878,11 @@ void MyWidget::onUnsubscribeUltraSensorStatus()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onCallServiceListScript()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1558,6 +1901,11 @@ void MyWidget::onCallServiceListScript()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	nameStr
+*Returns : 		void
+*/
 void MyWidget::onCallServiceDeleteScript(QString nameStr)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1576,6 +1924,11 @@ void MyWidget::onCallServiceDeleteScript(QString nameStr)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onCallServiceUpdatePose()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1590,6 +1943,11 @@ void MyWidget::onCallServiceUpdatePose()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	nameStr
+*Returns : 		void
+*/
 void MyWidget::onCallServiceLoadMap(QString nameStr)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1608,6 +1966,11 @@ void MyWidget::onCallServiceLoadMap(QString nameStr)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::onCallServiceGetVolume()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1626,6 +1989,11 @@ void MyWidget::onCallServiceGetVolume()
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	value
+*Returns : 		void
+*/
 void MyWidget::onCallServiceSetVolume(int value)
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1645,6 +2013,11 @@ void MyWidget::onCallServiceSetVolume(int value)
     tcpSocket->flush();
 }
 
+/*
+*Function Description :
+*Parameters : 	vel_type
+*Returns : 		void
+*/
 void MyWidget::updateVel(VEL_TYPE vel_type)
 {
     velType = vel_type;
@@ -1652,11 +2025,21 @@ void MyWidget::updateVel(VEL_TYPE vel_type)
         velCmdTimer->start();
 }
 
+/*
+*Function Description :
+*Parameters : 	name
+*Returns : 		void
+*/
 void MyWidget::loadScript(QString name)
 {
     emit deskGetScriptName(name);
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 void MyWidget::resetOrigin(int idx)
 {
     WarringDialog *dlg = new WarringDialog(this);
@@ -1683,6 +2066,11 @@ void MyWidget::resetOrigin(int idx)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::joystickDestroyed()
 {
     onUnsubscribeSensorButtonCmdVel();
@@ -1691,6 +2079,11 @@ void MyWidget::joystickDestroyed()
     mediaPlayer->stop();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::alarmDlagDestroyed()
 {
     onUnsubscribeSensorButtonCmdVel();
@@ -1699,6 +2092,11 @@ void MyWidget::alarmDlagDestroyed()
     mediaPlayer->stop();
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 void MyWidget::startFromWhere(int idx)
 {
     onPublishKeyPriority(false);
@@ -1716,6 +2114,11 @@ void MyWidget::startFromWhere(int idx)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 void MyWidget::startScript(int idx)
 {
     WarringDialog *dlg = new WarringDialog(this);
@@ -1756,6 +2159,11 @@ void MyWidget::startScript(int idx)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	type, idx
+*Returns : 		void
+*/
 void MyWidget::showAction(int type, int idx)
 {
     //qDebug() << type << idx;
@@ -1801,6 +2209,11 @@ void MyWidget::showAction(int type, int idx)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 float MyWidget::checkAudioSec(int idx)
 {
     QProcess cmdProcess;;
@@ -1848,6 +2261,11 @@ float MyWidget::checkAudioSec(int idx)
         return -1.0;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::goOrigin()
 {
     WarringDialog *dlg = new WarringDialog(this);
@@ -1867,6 +2285,11 @@ void MyWidget::goOrigin()
         emit updateDeliveryStatus2PerformanceDlg(false);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::poseUpdate()
 {
     onCallServiceUpdatePose();
@@ -1876,6 +2299,11 @@ void MyWidget::poseUpdate()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::poseUpdateOnce()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1884,23 +2312,43 @@ void MyWidget::poseUpdateOnce()
     poseUpdate();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::abortMovebase()
 {
     onPublishActionCommand(2, " ", -1);
     onCallServiceUpdatePose();
 }
 
+/*
+*Function Description :
+*Parameters : 	type
+*Returns : 		void
+*/
 void MyWidget::setTeleopMode(TELEOP_TYPE type)
 {
     teleopMode = type;
 }
 
+/*
+*Function Description :
+*Parameters : 	flag
+*Returns : 		void
+*/
 void MyWidget::setKeyPriorityFlag(bool flag)
 {
     keyPriorityFlag = flag;
     onPublishKeyPriority(!flag);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::joystick4Administrator()
 {
     if(emergencyDlg == nullptr){
@@ -1929,11 +2377,21 @@ void MyWidget::joystick4Administrator()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	value
+*Returns : 		void
+*/
 void MyWidget::setVolume(int value)
 {
     onCallServiceSetVolume(value);
 }
 
+/*
+*Function Description :
+*Parameters : 	idx
+*Returns : 		void
+*/
 void MyWidget::setLang(int idx)
 {
     langIdx = idx;
@@ -1945,12 +2403,22 @@ void MyWidget::setLang(int idx)
         qApp->installTranslator(trsChinese);
 }
 
+/*
+*Function Description :
+*Parameters : 	ipStr, portStr
+*Returns : 		void
+*/
 void MyWidget::setTcpSocket(QString ipStr, QString portStr)
 {
     m_tcpSocketInfo->ip = ipStr;
     m_tcpSocketInfo->port = portStr;
 }
 
+/*
+*Function Description :
+*Parameters : 	pwd
+*Returns : 		void
+*/
 void MyWidget::checkPassword(QString pwd)
 {
     if(pwd == password() || pwd == "123456"){
@@ -1979,6 +2447,11 @@ void MyWidget::checkPassword(QString pwd)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void MyWidget::askScriptList()
 {
     if(tcpSocket->state() != QAbstractSocket::ConnectedState)
@@ -1987,11 +2460,21 @@ void MyWidget::askScriptList()
     onCallServiceListScript();
 }
 
+/*
+*Function Description :
+*Parameters : 	script
+*Returns : 		void
+*/
 void MyWidget::setCurrentScript(QString script)
 {
     currentScript = script;
 }
 
+/*
+*Function Description :
+*Parameters : 	cmd
+*Returns : 		void
+*/
 void MyWidget::systemCommand(SYSTEM_CMD cmd)
 {
     switch(cmd){

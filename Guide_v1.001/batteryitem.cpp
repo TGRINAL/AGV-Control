@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            batteryitem.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "batteryitem.h"
 #include <QPainter>
 #include <QDebug>
@@ -19,6 +34,11 @@ BatteryItem::BatteryItem(QWidget *parent, int value, int color /*= 0*/)
     setShowText(1);
 }
 
+/*
+*Function Description :
+*Parameters : 	value
+*Returns : 		void
+*/
 void BatteryItem::setBatteryValue(int value)
 {
     if(value != -1){
@@ -43,6 +63,11 @@ void BatteryItem::setBatteryValue(int value)
     update();
 }
 
+/*
+*Function Description :
+*Parameters : 	color
+*Returns : 		void
+*/
 void BatteryItem::setBatteryColor(int color)
 {
     if (color < 0 || color > 3)
@@ -69,6 +94,11 @@ void BatteryItem::setBatteryColor(int color)
     update();
 }
 
+/*
+*Function Description :
+*Parameters : 	flg, str
+*Returns : 		void
+*/
 void BatteryItem::setShowText(int flg/*=0*/, QString str/*=""*/)
 {
     m_showTextFlg = flg;
@@ -81,6 +111,11 @@ BatteryItem::~BatteryItem()
 
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void
+*/
 void BatteryItem::paintEvent(QPaintEvent *event)
 {
 

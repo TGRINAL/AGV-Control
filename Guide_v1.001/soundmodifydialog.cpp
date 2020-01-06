@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            soundmodifydialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+			
 #include "soundmodifydialog.h"
 #include "ui_soundmodifydialog.h"
 
@@ -42,6 +57,11 @@ SoundModifyDialog::~SoundModifyDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::readCmdData()
 {
     QByteArray data = cmdProcess->readAll();
@@ -70,6 +90,11 @@ void SoundModifyDialog::readCmdData()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::on_selectMusicBtn_clicked()
 {
     QString name = QFileDialog::getOpenFileName(this, "Select wav file",
@@ -83,16 +108,31 @@ void SoundModifyDialog::on_selectMusicBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::on_modifyBtn_clicked()
 {
     copyFile();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::on_closeBtn_clicked()
 {
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::copyFile()
 {
     //1. copy to XX.wav
@@ -116,6 +156,11 @@ void SoundModifyDialog::copyFile()
         QTimer::singleShot(100, this, SLOT(transferFile()));
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::transferFile()
 {
     //2. transfer .wav to robot
@@ -165,6 +210,11 @@ void SoundModifyDialog::transferFile()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::transferFileBGM()
 {
     //2. transfer .wav to robot
@@ -208,6 +258,11 @@ void SoundModifyDialog::transferFileBGM()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::chmodFile()
 {
     //3. chmod 775
@@ -243,6 +298,11 @@ void SoundModifyDialog::chmodFile()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::deleteFile()
 {
     //4. delete XX.wav
@@ -281,6 +341,11 @@ void SoundModifyDialog::deleteFile()
         QFile::remove(QDir::currentPath() + "/" + targetFileName);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::finishModify()
 {
     warringDlg->setWindowTitle(tr("Ok"));
@@ -288,6 +353,11 @@ void SoundModifyDialog::finishModify()
     warringDlg->show();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void
+*/
 void SoundModifyDialog::cancelTransfer()    //QprogressDialog cancel and close signal
 {
     cmdProcess->terminate();
