@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            listdialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "ListDialog.h"
 #include "ui_listdialog.h"
 
@@ -15,12 +30,22 @@ ListDialog::~ListDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ListDialog::clearList()
 {
     ui->listWidget->clear();
     ui->loadBtn->setEnabled(false);
 }
 
+/*
+*Function Description :
+*Parameters : 	strList
+*Returns : 		void 
+*/
 void ListDialog::setList(QStringList strList)
 {
     for(int i=0; i<strList.count(); i++){
@@ -29,6 +54,11 @@ void ListDialog::setList(QStringList strList)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	listType
+*Returns : 		void 
+*/
 void ListDialog::setListType(LIST_TYPE listType)
 {
     m_listType = listType;
@@ -38,6 +68,11 @@ void ListDialog::setListType(LIST_TYPE listType)
         this->setWindowTitle("Script List");
 }
 
+/*
+*Function Description :
+*Parameters : 	item pointer
+*Returns : 		void 
+*/
 void ListDialog::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     if(ui->listWidget->currentRow() == -1)
@@ -49,6 +84,11 @@ void ListDialog::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ListDialog::on_loadBtn_clicked()
 {
     if(ui->listWidget->currentRow() == -1)
@@ -60,11 +100,21 @@ void ListDialog::on_loadBtn_clicked()
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ListDialog::on_cancelBtn_clicked()
 {
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ListDialog::on_listWidget_itemSelectionChanged()
 {
     if(ui->listWidget->currentRow() != -1){
@@ -77,6 +127,11 @@ void ListDialog::on_listWidget_itemSelectionChanged()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ListDialog::on_deleteBtn_clicked()
 {
     if(ui->listWidget->currentRow() == -1)
@@ -106,6 +161,11 @@ void ListDialog::on_deleteBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void ListDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {

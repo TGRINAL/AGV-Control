@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            performancedialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "performancedialog.h"
 #include "ui_performancedialog.h"
 
@@ -31,31 +46,61 @@ PerformanceDialog::~PerformanceDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_forwardBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Forward);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_backwardBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Backward);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_leftBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Left);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_rightBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Right);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_stopBtn_clicked()
 {
     emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_safeStopBtn_clicked()
 {
     if(ui->safeStopBtn->text() == tr("Safe Stop")){
@@ -70,6 +115,11 @@ void PerformanceDialog::on_safeStopBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void PerformanceDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {
@@ -85,11 +135,21 @@ void PerformanceDialog::changeEvent(QEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_armBtn_clicked()
 {
     emit requestPerformance(PERFORMANCE_TYPE::ARM_TYPE, ui->armCb->currentIndex()+1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_audioBtn_clicked()
 {
     if(ui->audioCb->currentIndex() >= 8)
@@ -98,6 +158,11 @@ void PerformanceDialog::on_audioBtn_clicked()
         emit requestPerformance(PERFORMANCE_TYPE::AUDIO_TYPE, ui->audioCb->currentIndex()+1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_ledBtn_clicked()
 {
     if(ui->ledCb->currentIndex() == 4)
@@ -106,6 +171,11 @@ void PerformanceDialog::on_ledBtn_clicked()
         emit requestPerformance(PERFORMANCE_TYPE::LED_TYPE, ui->ledCb->currentIndex()+1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_abortBtn_clicked()
 {
     ui->tableCb->setEnabled(true);
@@ -115,6 +185,11 @@ void PerformanceDialog::on_abortBtn_clicked()
     emit requestPerformance(PERFORMANCE_TYPE::ABORT_TYPE, 0);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_goOriginBtn_clicked()
 {
     isDeliveryFlag = true;
@@ -125,16 +200,31 @@ void PerformanceDialog::on_goOriginBtn_clicked()
     ui->resetOriginBtn->setEnabled(!isDeliveryFlag);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_resetOriginBtn_clicked()
 {
     emit requestPerformance(PERFORMANCE_TYPE::RESETORIGIN_TYPE, 0);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_closeBtn_clicked()
 {
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::on_deliveryBtn_clicked()
 {
     isDeliveryFlag = true;
@@ -145,6 +235,11 @@ void PerformanceDialog::on_deliveryBtn_clicked()
     ui->resetOriginBtn->setEnabled(!isDeliveryFlag);
 }
 
+/*
+*Function Description :
+*Parameters : 	flag
+*Returns : 		void 
+*/
 void PerformanceDialog::updateDeliveryStatus(bool flag)
 {
     isDeliveryFlag = flag;
@@ -154,6 +249,11 @@ void PerformanceDialog::updateDeliveryStatus(bool flag)
     ui->resetOriginBtn->setEnabled(!flag);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::handleArmTimeout()
 {
     armTimer->stop();
@@ -161,6 +261,11 @@ void PerformanceDialog::handleArmTimeout()
     ui->armBtn->setEnabled(true);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::handleAudioTimeout()
 {
     audioTimer->stop();
@@ -168,6 +273,11 @@ void PerformanceDialog::handleAudioTimeout()
     ui->audioBtn->setEnabled(true);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void PerformanceDialog::handleLedTimeout()
 {
     ledTimer->stop();

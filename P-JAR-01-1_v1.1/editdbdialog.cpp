@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            editdbdialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "editdbdialog.h"
 #include "ui_editdbdialog.h"
 
@@ -72,6 +87,12 @@ EditDbDialog::~EditDbDialog()
 {
     delete ui;
 }
+
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void EditDbDialog::on_okBtn_clicked()
 {
     QString numStr = "";
@@ -92,11 +113,21 @@ void EditDbDialog::on_okBtn_clicked()
     close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void EditDbDialog::on_cancelBtn_clicked()
 {
     close();
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void EditDbDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {

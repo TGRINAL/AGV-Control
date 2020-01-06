@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            changepwddialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "changepwddialog.h"
 #include "ui_changepwddialog.h"
 
@@ -14,6 +29,11 @@ ChangePwdDialog::~ChangePwdDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	parent pointer, ok pointer
+*Returns : 		QString 
+*/
 QString ChangePwdDialog::getOnePassword(QWidget *parent, bool *ok)
 {
     ChangePwdDialog *dialog = new ChangePwdDialog(parent);
@@ -30,12 +50,22 @@ QString ChangePwdDialog::getOnePassword(QWidget *parent, bool *ok)
         return QString();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ChangePwdDialog::on_cancelBtn_clicked()
 {
     this->done(QDialog::Rejected);
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ChangePwdDialog::on_confirmBtn_clicked()
 {
     if(!isOnePasswordMode){
@@ -62,6 +92,11 @@ void ChangePwdDialog::on_confirmBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void ChangePwdDialog::setOnePasswordMode()
 {
     isOnePasswordMode = true;
@@ -71,6 +106,11 @@ void ChangePwdDialog::setOnePasswordMode()
     ui->pwdLineEdit_2->setVisible(false);
 }
 
+/*
+*Function Description :
+*Parameters : 	checked
+*Returns : 		void 
+*/
 void ChangePwdDialog::on_showPwCheckBox_toggled(bool checked)
 {
     if(checked){

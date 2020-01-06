@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            goalEditDialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "goaleditdialog.h"
 #include "ui_goaleditdialog.h"
 
@@ -74,6 +89,11 @@ goalEditDialog::goalEditDialog(int order, QPointF pos, QQuaternion quat, QWidget
     this->setFixedWidth(340);
 }
 
+/*
+*Function Description :
+*Parameters : 	resolution, width, height, width_ori, height_ori
+*Returns : 		void
+*/
 void goalEditDialog::setMapInfo(float resolution, float width, float height, float width_ori, float height_ori)
 {
     ui->xDoubleSpinBox->setMaximum(height * resolution + height_ori);
@@ -88,6 +108,11 @@ goalEditDialog::~goalEditDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void goalEditDialog::on_okBtn_clicked()
 {
     if(isEditCorrectPoint){
@@ -106,11 +131,21 @@ void goalEditDialog::on_okBtn_clicked()
     close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void goalEditDialog::on_cancelBtn_clicked()
 {
     close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void goalEditDialog::on_coordinateMapBtn_clicked()
 {
     if(ui->xyGraphicsView->isHidden())
@@ -125,6 +160,11 @@ void goalEditDialog::on_coordinateMapBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void goalEditDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {

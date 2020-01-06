@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            joystickdialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "joystickdialog.h"
 #include "ui_joystickdialog.h"
 
@@ -37,6 +52,11 @@ JoystickDialog::~JoystickDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	flag
+*Returns : 		void 
+*/
 void JoystickDialog::setFlicker(bool flag)
 {
     flickerFlag = flag;
@@ -51,6 +71,11 @@ void JoystickDialog::setFlicker(bool flag)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::handleBackgroundTimeout()
 {
     static bool pingpong = true;
@@ -67,60 +92,115 @@ void JoystickDialog::handleBackgroundTimeout()
     pingpong = !pingpong;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_closeBtn_clicked()
 {
     this->close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_forwardBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Forward);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_backwardBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Backward);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_leftBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Left);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_rightBtn_pressed()
 {
     emit updateVel(VEL_TYPE::Right);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_forwardBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_backwardBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_leftBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_rightBtn_released()
 {
     if(teleopMode == TELEOP_TYPE::JOG)
         emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_stopBtn_clicked()
 {
     emit updateVel(VEL_TYPE::Stop);
 }
 
+/*
+*Function Description :
+*Parameters : 	checked
+*Returns : 		void 
+*/
 void JoystickDialog::on_jogRb_toggled(bool checked)
 {
     if(checked)
@@ -131,21 +211,41 @@ void JoystickDialog::on_jogRb_toggled(bool checked)
     emit setTeleopMode(teleopMode);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_abortBtn_clicked()
 {
     emit abortMovebase();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_goOriginBtn_clicked()
 {
     emit goOrigin();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_resetOriginBtn_clicked()
 {
     emit resetOrigin();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void JoystickDialog::on_safeBtn_clicked()
 {
     if(ui->safeBtn->text() == tr("Safe Stop")){
@@ -160,6 +260,11 @@ void JoystickDialog::on_safeBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void JoystickDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {

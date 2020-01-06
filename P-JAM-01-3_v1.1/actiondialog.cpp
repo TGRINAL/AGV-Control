@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            actiondialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "actiondialog.h"
 #include "ui_actiondialog.h"
 
@@ -243,34 +258,65 @@ ActionDialog::~ActionDialog()
     delete ui;
 }
 
+
+/*
+*Function Description :
+*Parameters :   NONE
+*Returns : 		void 
+*/
 void ActionDialog::on_cancelBtn_clicked()
 {
     close();
 }
 
+/*
+*Function Description :
+*Parameters :   checked
+*Returns : 		void 
+*/
 void ActionDialog::on_delayRadioBtn_toggled(bool checked)
 {
     ui->delaySpinBox->setEnabled(checked);
 }
 
+/*
+*Function Description :
+*Parameters : index
+*Returns : 		void 
+*/
 void ActionDialog::on_audioComboBox_highlighted(int index)
 {
     Q_UNUSED(index);
     ui->audioRadioBtn->setChecked(true);
 }
 
+/*
+*Function Description :
+*Parameters : index
+*Returns : 		void 
+*/
 void ActionDialog::on_searchTagComboBox_highlighted(int index)
 {
     Q_UNUSED(index);
     ui->searchTagRadioBtn->setChecked(true);
 }
 
+/*
+*Function Description :
+*Parameters :   index
+*Returns : 		void 
+*/
 void ActionDialog::on_ledComboBox_highlighted(int index)
 {
     Q_UNUSED(index);
     ui->ledRadioBtn->setChecked(true);
 }
 
+/*
+*Function Description :
+*Parameters :   checked
+*Returns : 		void 
+*/
 void ActionDialog::on_dynparamRadioBtn_toggled(bool checked)
 {
     ui->laserDistanceSpinBox->setEnabled(checked);
@@ -286,6 +332,11 @@ void ActionDialog::on_dynparamRadioBtn_toggled(bool checked)
     ui->localCombinMethodCB->setEnabled(checked);
 }
 
+/*
+*Function Description :
+*Parameters : value
+*Returns : 		void 
+*/
 void ActionDialog::on_glWeightScrollBar_valueChanged(int value)
 {
     float g = 65.0*(1-value/100.0);
@@ -295,11 +346,21 @@ void ActionDialog::on_glWeightScrollBar_valueChanged(int value)
     ui->glSpinBox->setValue(value);
 }
 
+/*
+*Function Description :
+*Parameters : value
+*Returns : 	  void 
+*/
 void ActionDialog::on_glSpinBox_valueChanged(int value)
 {
     ui->glWeightScrollBar->setValue(value);
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_imgDetcRadioButton_toggled(bool checked)
 {
     ui->allCB->setEnabled(checked);
@@ -309,6 +370,11 @@ void ActionDialog::on_imgDetcRadioButton_toggled(bool checked)
     ui->otherCB->setEnabled(checked);
 }
 
+/*
+*Function Description :
+*Parameters :   NONE
+*Returns : 		void 
+*/
 void ActionDialog::setSomeWidgetInvisable()
 {
     ui->searchTagRadioBtn->setVisible(false);
@@ -359,6 +425,11 @@ void ActionDialog::setSomeWidgetInvisable()
 #endif
 }
 
+/*
+*Function Description :
+*Parameters : flag
+*Returns : 		void 
+*/
 void ActionDialog::setActionWidget(bool flag)
 {
     ui->armRadioBtn->setVisible(!flag);
@@ -376,6 +447,11 @@ void ActionDialog::setActionWidget(bool flag)
     on_jumpComboBox_currentIndexChanged(ui->jumpComboBox->currentIndex());
 }
 
+/*
+*Function Description :
+*Parameters :  NONE
+*Returns : 		void 
+*/
 void ActionDialog::on_add2EndBtn_clicked()
 {
     QList<float> valueList;
@@ -476,6 +552,11 @@ void ActionDialog::on_add2EndBtn_clicked()
     close();
 }
 
+/*
+*Function Description :
+*Parameters :  NONE
+*Returns : 		void 
+*/
 void ActionDialog::on_add2BelowBtn_clicked()
 {
     QList<float> valueList;
@@ -561,6 +642,11 @@ void ActionDialog::on_add2BelowBtn_clicked()
     close();
 }
 
+/*
+*Function Description :
+*Parameters :  NONE
+*Returns : 		void 
+*/
 void ActionDialog::on_allCB_clicked()
 {
     bool checked = ui->allCB->isChecked();
@@ -570,6 +656,11 @@ void ActionDialog::on_allCB_clicked()
     ui->otherCB->setChecked(checked);
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_personCB_toggled(bool checked)
 {
     if(checked){
@@ -582,6 +673,11 @@ void ActionDialog::on_personCB_toggled(bool checked)
     }
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_chairCB_toggled(bool checked)
 {
     if(checked){
@@ -594,6 +690,11 @@ void ActionDialog::on_chairCB_toggled(bool checked)
     }
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_tableCB_toggled(bool checked)
 {
     if(checked){
@@ -606,6 +707,11 @@ void ActionDialog::on_tableCB_toggled(bool checked)
     }
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_otherCB_toggled(bool checked)
 {
     if(checked){
@@ -618,18 +724,33 @@ void ActionDialog::on_otherCB_toggled(bool checked)
     }
 }
 
+/*
+*Function Description :
+*Parameters : index
+*Returns : 		void 
+*/
 void ActionDialog::on_remarkComboBox_highlighted(int index)
 {
     Q_UNUSED(index);
     ui->remarksRadioBtn->setChecked(true);
 }
 
+/*
+*Function Description :
+*Parameters : index
+*Returns : 		void 
+*/
 void ActionDialog::on_remarkSubComboBox_highlighted(int index)
 {
     Q_UNUSED(index);
     ui->remarksRadioBtn->setChecked(true);
 }
 
+/*
+*Function Description :
+*Parameters : event Pointer
+*Returns : 		void 
+*/
 void ActionDialog::changeEvent(QEvent *event)
 {
     if(0 != event) {
@@ -644,19 +765,33 @@ void ActionDialog::changeEvent(QEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_writeExtCommRadioBtn_toggled(bool checked)
 {
     ui->writeExtAddrSpinBox->setEnabled(checked);
     ui->writeExtValueSpinBox->setEnabled(checked);
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_requestExtCommRadioBtn_toggled(bool checked)
 {
     ui->requestExtAddrSpinBox->setEnabled(checked);
     ui->requestExtValueSpinBox->setEnabled(checked);
 }
 
-
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_agvRadioButton_toggled(bool checked)
 {
     if(checked){
@@ -667,11 +802,21 @@ void ActionDialog::on_agvRadioButton_toggled(bool checked)
     }
 }
 
+/*
+*Function Description :
+*Parameters : checked
+*Returns : 		void 
+*/
 void ActionDialog::on_comTableDetecRadioBtn_toggled(bool checked)
 {
     ui->jumpSpinBox->setEnabled(checked);
 }
 
+/*
+*Function Description :
+*Parameters : index
+*Returns : 		void 
+*/
 void ActionDialog::on_jumpComboBox_currentIndexChanged(int index)
 {
     if(index == 0){
@@ -686,6 +831,11 @@ void ActionDialog::on_jumpComboBox_currentIndexChanged(int index)
     }
 }
 
+/*
+*Function Description :
+*Parameters : index
+*Returns : 		void 
+*/
 void ActionDialog::on_jumpComboBox_highlighted(int index)
 {
     Q_UNUSED(index);

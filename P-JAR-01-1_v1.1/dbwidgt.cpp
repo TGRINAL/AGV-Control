@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            dbwidgt.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "dbwidgt.h"
 #include "ui_dbwidgt.h"
 
@@ -21,6 +36,11 @@ DbWidgt::~DbWidgt()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	type
+*Returns : 		void 
+*/
 void DbWidgt::initSqlTable(DB_TYPE type)
 {
     QSqlQuery query;
@@ -38,6 +58,11 @@ void DbWidgt::initSqlTable(DB_TYPE type)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::initModel()
 {
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);                  // OnFieldChange, OnRowChange, OnManualSubmit
@@ -62,6 +87,11 @@ void DbWidgt::initModel()
     ui->acTableView->repaint();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::writeSettings()
 {
     QSettings settings;
@@ -76,6 +106,11 @@ void DbWidgt::writeSettings()
     settings.endGroup();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::readSettings()
 {
     QSettings settings;
@@ -92,6 +127,11 @@ void DbWidgt::readSettings()
     getModel()->submitAll();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::writeDbToFile()
 {
     QDir dir = QDir::currentPath();
@@ -118,6 +158,11 @@ void DbWidgt::writeDbToFile()
     file.close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::readDbFromFile()
 {
     QDir dir = QDir::currentPath();
@@ -142,6 +187,11 @@ void DbWidgt::readDbFromFile()
     file.close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_addButton_clicked()
 {
     EditDbDialog *dlg = new EditDbDialog(true, m_type);
@@ -164,6 +214,11 @@ void DbWidgt::on_addButton_clicked()
     dlg->show();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_editBtn_clicked()
 {
     int currentRow = ui->acTableView->currentIndex().row();
@@ -196,12 +251,22 @@ void DbWidgt::on_editBtn_clicked()
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	&index
+*Returns : 		void 
+*/
 void DbWidgt::on_acTableView_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index);
     on_editBtn_clicked();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_deletehButton_clicked()
 {
     int idx = ui->acTableView->currentIndex().row();
@@ -232,6 +297,11 @@ void DbWidgt::on_deletehButton_clicked()
         ui->acTableView->selectRow(idx);
 }
 
+/*
+*Function Description :
+*Parameters : 	numberStr, idStr
+*Returns : 		void 
+*/
 void DbWidgt::addDbFinish(QString numberStr, QString idStr)
 {
     for(int i=0; i< model->rowCount();i++){
@@ -275,6 +345,11 @@ void DbWidgt::addDbFinish(QString numberStr, QString idStr)
     ui->acTableView->selectRow(ui->acTableView->model()->rowCount()-1);
 }
 
+/*
+*Function Description :
+*Parameters : 	numberStr, idStr, scriptStr
+*Returns : 		void 
+*/
 void DbWidgt::addDbFinish(QString numberStr, QString idStr, QString scriptStr)
 {
     for(int i=0; i< model->rowCount();i++){
@@ -321,6 +396,11 @@ void DbWidgt::addDbFinish(QString numberStr, QString idStr, QString scriptStr)
     ui->acTableView->selectRow(ui->acTableView->model()->rowCount()-1);
 }
 
+/*
+*Function Description :
+*Parameters : 	numberStr, idStr
+*Returns : 		void 
+*/
 void DbWidgt::editDbFinish(QString numberStr, QString idStr)
 {
     for(int i=0; i< model->rowCount();i++){
@@ -352,6 +432,11 @@ void DbWidgt::editDbFinish(QString numberStr, QString idStr)
     ui->acTableView->selectRow(currentRow);
 }
 
+/*
+*Function Description :
+*Parameters : 	id
+*Returns : 		void 
+*/
 void DbWidgt::addEmptyDb(QString id)
 {
     EditDbDialog *dlg = new EditDbDialog(true, m_type, id);
@@ -373,6 +458,11 @@ void DbWidgt::addEmptyDb(QString id)
     dlg->show();
 }
 
+/*
+*Function Description :
+*Parameters : 	scriptName
+*Returns : 		void 
+*/
 void DbWidgt::deskGetScriptName(QString scriptName)
 {
     int currentRow = ui->acTableView->currentIndex().row();
@@ -386,6 +476,11 @@ void DbWidgt::deskGetScriptName(QString scriptName)
     initModel();
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void DbWidgt::changeEvent(QEvent *event)
 {
     if(0 != event) {
@@ -402,12 +497,22 @@ void DbWidgt::changeEvent(QEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_logoutButton_clicked()
 {
     writeDbToFile();
     close();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_upBtn_clicked()
 {
     int idx = ui->acTableView->currentIndex().row();
@@ -430,6 +535,11 @@ void DbWidgt::on_upBtn_clicked()
     ui->acTableView->selectRow(idx-1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_downBtn_clicked()
 {
     int idx = ui->acTableView->currentIndex().row();
@@ -451,6 +561,11 @@ void DbWidgt::on_downBtn_clicked()
     ui->acTableView->selectRow(idx+1);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void DbWidgt::on_joystickAdminBtn_clicked()
 {
     emit joystick4Administrator();

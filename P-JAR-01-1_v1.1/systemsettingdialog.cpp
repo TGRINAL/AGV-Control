@@ -1,3 +1,18 @@
+/***********************************************************************************
+* Copyright ©2019 TECO Electric & Machinery Co., Ltd.                              *
+*                                                                                  *
+* The information contained herein is confidential property of TECO.	           *
+* All rights reserved. Reproduction, adaptation, or translation without		       *
+* the express written consent of TECO is prohibited, except as	                   *
+* allowed under the copyright laws and LGPL 2.1 terms.                             *
+***********************************************************************************/
+/*
+* @file            systemsettingdialog.cpp
+* @author          TECO Group Research Institute   <saservice@teco.com.tw>
+* @date            25 Dec 2019
+* @code Version    1.1
+*/
+
 #include "systemsettingdialog.h"
 #include "ui_systemsettingdialog.h"
 
@@ -57,31 +72,61 @@ SystemSettingDialog::~SystemSettingDialog()
     delete ui;
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_shutdownBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::SHUTDOWN);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_rebootBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::REBOOT);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_resetStatusBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::RESETSTATUS);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_cardDbBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::EDITCARDDB);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_tableDbBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::EDITTABLEDB);
 }
 
+/*
+*Function Description :
+*Parameters : 	event pointer
+*Returns : 		void 
+*/
 void SystemSettingDialog::changeEvent(QEvent *event)
 {
     if(0 != event){
@@ -97,6 +142,11 @@ void SystemSettingDialog::changeEvent(QEvent *event)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_testSoundBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::TESTSOUND);
@@ -105,17 +155,32 @@ void SystemSettingDialog::on_testSoundBtn_clicked()
     QTimer::singleShot(5000, this, SLOT(enableVolumeTest()));
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::enableVolumeTest()
 {
     ui->testSoundBtn->setEnabled(true);
     ui->volumeScrollBar->setEnabled(true);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_volumeScrollBar_sliderReleased()
 {
     emit setVolume(ui->volumeScrollBar->value());
 }
 
+/*
+*Function Description :
+*Parameters : 	action
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_volumeScrollBar_actionTriggered(int action)
 {
     if(action == QAbstractSlider::SliderSingleStepAdd || action == QAbstractSlider::SliderSingleStepSub ||
@@ -124,6 +189,11 @@ void SystemSettingDialog::on_volumeScrollBar_actionTriggered(int action)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_performanceModeBtn_clicked()
 {
     PerformanceDialog *dlg = new PerformanceDialog(tableDbModel, this);
@@ -138,21 +208,41 @@ void SystemSettingDialog::on_performanceModeBtn_clicked()
     dlg->show();
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_changePwdBtn_clicked()
 {
     emit systemCommand(SYSTEM_CMD::CHANGEPWD);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_langEnBtn_clicked()
 {
     emit setLang(0);
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_langZhBtn_clicked()
 {
     emit setLang(1);
 }
 
+/*
+*Function Description :
+*Parameters : 	value
+*Returns : 		void 
+*/
 void SystemSettingDialog::getUltrasonicValue(int value)
 {
     for(int i=0; i<6; i++){
@@ -163,6 +253,11 @@ void SystemSettingDialog::getUltrasonicValue(int value)
     }
 }
 
+/*
+*Function Description :
+*Parameters : 	NONE
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_originConfirmBtn_clicked()
 {
     emit setOrigin(QPointF(ui->originDsb_x->value(), ui->originDsb_y->value()), ui->originDsb_angle->value());
@@ -176,6 +271,11 @@ void SystemSettingDialog::on_originConfirmBtn_clicked()
     ui->originDsb_angle->setStyleSheet("color: rgb(0, 0, 0);");
 }
 
+/*
+*Function Description :
+*Parameters : 	arg1
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_originDsb_x_valueChanged(double arg1)
 {
     if(origin_x != (float)arg1)
@@ -184,6 +284,11 @@ void SystemSettingDialog::on_originDsb_x_valueChanged(double arg1)
         ui->originDsb_x->setStyleSheet("color: rgb(0, 0, 0);");
 }
 
+/*
+*Function Description :
+*Parameters : 	arg1
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_originDsb_y_valueChanged(double arg1)
 {
     if(origin_y != (float)arg1)
@@ -192,6 +297,11 @@ void SystemSettingDialog::on_originDsb_y_valueChanged(double arg1)
         ui->originDsb_y->setStyleSheet("color: rgb(0, 0, 0);");
 }
 
+/*
+*Function Description :
+*Parameters : 	arg1
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_originDsb_angle_valueChanged(double arg1)
 {
     if(origin_angle != (float)arg1)
@@ -200,6 +310,11 @@ void SystemSettingDialog::on_originDsb_angle_valueChanged(double arg1)
         ui->originDsb_angle->setStyleSheet("color: rgb(0, 0, 0);");
 }
 
+/*
+*Function Description :
+*Parameters : 	checked
+*Returns : 		void 
+*/
 void SystemSettingDialog::on_speechRecogCheckBox_toggled(bool checked)
 {
     emit setSpeechRecogSwitch(checked);
